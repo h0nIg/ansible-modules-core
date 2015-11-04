@@ -39,6 +39,10 @@ options:
     required: true
     default: []
     aliases: ['dest', 'name']
+  src:
+    description:
+      - 'file/directory to symlink/hardlink to'
+    required: false
   state:
     description:
       - If C(directory), all immediate subdirectories will be created if they
@@ -49,9 +53,10 @@ options:
         If C(touch), an empty file will be created if the c(path) does not
         exist, while an existing file or directory will receive updated file access and
         modification times (similar to the way `touch` works from the command line).
+        If C(symlink) a symlink will be created if it does not exist.
     required: false
     default: file
-    choices: [ file, directory, touch, absent ]
+    choices: [ file, directory, touch, absent, link, hard ]
 '''
 
 EXAMPLES = '''
@@ -69,4 +74,10 @@ EXAMPLES = '''
 
 # remove directory structure
 - win_file: path=C:\\temp state=absent
+
+# create symlink to destination
+- win_file: path=C:\\temp state=link src=C:\\destination
+
+# create hardlink to destination
+- win_file: path=C:\\temp state=hard src=C:\\destination
 '''

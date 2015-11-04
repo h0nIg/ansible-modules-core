@@ -43,6 +43,9 @@ $state = Get-Attr $params "state" "unspecified"
 # if state is not supplied, test the $path to see if it looks like 
 # a file or a folder and set state to file or folder
 
+# for symlinks/hardlinks
+$src = Get-Attr $params "src" $FALSE
+
 # result
 $result = New-Object psobject @{
     changed = $FALSE
